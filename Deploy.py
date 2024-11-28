@@ -7,6 +7,16 @@ df = pd.read_csv("C:/Users/T-Gamer/Downloads/Student_Performance.csv")
 model_lr = joblib.load("C:/Users/T-Gamer/.vscode/.vscode/lr_model.pkl")
 
 st.title('Predição de Performance Estudantil')
+st.sidebar.title('Orientação')
+st.sidebar.write('Para realizar a previsão para vários alunos, atente-se que a tabela ou planilha enviada deve ter as seguintes 4 variáveis:')
+st.sidebar.markdown(
+"""
+- Horas estudadas.
+- Média de notas passadas.
+- Média de horas dormidas.
+- Quantidade de listas de exercícios resolvidas.
+"""
+)
 selecao = st.selectbox('Escolha a forma de previsão:', ['Previsão em massa (CSV)', 'Previsão individual'])
 if selecao == 'Previsão em massa (CSV)':
   st.header('Previsão em massa')
@@ -18,7 +28,9 @@ if selecao == 'Previsão em massa (CSV)':
     alunos_csv = alunos_csv.values
   if st.button('Prever', 1):
     predicao = model_lr.predict(alunos_csv)
-    st.write(predicao)
+    resultado = pd.DataFrame(columns=['Índice de performance'])
+    resultado['Índice de performance'] = predicao
+    st.write(resultado)
 elif selecao == 'Previsão individual':
   st.header('Previsão individual')
   horas_estudadas = st.slider("Horas estudadas", int(df['Hours Studied'].min()), int(df['Hours Studied'].max()))
