@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import joblib
 
-df = pd.read_csv("Student_Performance.csv")
-model_lr = joblib.load("lr_model.pkl")
+df = pd.read_csv("ProjetoBimII/Student_Performance.csv")
+model_lr = joblib.load("ProjetoBimII/lr_model.pkl")
 
 st.title('Predição de Performance Estudantil')
 st.sidebar.title('Orientação')
